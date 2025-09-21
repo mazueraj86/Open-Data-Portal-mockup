@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibrant Data Portal</title>
+    <style>
+        /* New & Vibrant General Styling */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #4A4A4A;
+            margin: 0;
+            background-color: #F8F9FA;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-image: linear-gradient(135deg, #6C5CE7 0%, #00C8FF 100%); /* Vibrant gradient */
+            color: #fff;
+            padding: 1.5rem 20px;
+            text-align: center;
+            border-bottom: 5px solid #00B0FF; /* Slightly lighter blue for distinction */
+            position: relative;
+            overflow: hidden;
+        }
+        header::before { /* Data-themed visual element */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="20" cy="20" r="5" fill="%23ffffff"/><circle cx="80" cy="80" r="5" fill="%23ffffff"/><line x1="20" y1="20" x2="80" y2="80" stroke="%23ffffff" stroke-width="2" stroke-dasharray="4 2"/></svg>') repeat;
+            opacity: 0.1;
+            transform: scale(1.5);
+            animation: header-pattern-move 60s linear infinite;
+        }
+        @keyframes header-pattern-move {
+            from { background-position: 0 0; }
+            to { background-position: 100px 100px; }
+        }
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 0.5rem;
+            position: relative; /* Ensure text is above pseudo-element */
+            z-index: 1;
+        }
+        header p {
+            font-size: 1.2em;
+            position: relative;
+            z-index: 1;
+        }
+        nav {
+            background-color: #fff;
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border-radius: 12px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        nav a {
+            text-decoration: none;
+            color: #6C5CE7;
+            font-weight: bold;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav a:hover {
+            background-color: #E9E4FF;
+            color: #5A48D3;
+        }
+        .content-section {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        h1, h2, h3 {
+            color: #6C5CE7;
+            font-weight: 700;
+        }
+        .action-button {
+            background-color: #FF6B6B;
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 15px;
+        }
+        .action-button:hover {
+            background-color: #E75353;
+            transform: translateY(-2px);
+        }
+
+        /* Data Sharing Framework UI */
+        .framework-nav {
+            display: flex;
+            justify-content: space-between;
+            background-color: #F4F2FF;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .framework-nav button {
+            flex-grow: 1;
+            padding: 18px 10px;
+            border: none;
+            background-color: transparent;
+            font-weight: bold;
+            color: #6C5CE7;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 10px;
+        }
+        .framework-nav button.active {
+            background-color: #6C5CE7;
+            color: #fff;
+        }
+        .framework-benefits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        .benefit-card {
+            flex: 1 1 calc(50% - 25px);
+            background-color: #F8F2FF;
+            padding: 25px;
+            border-left: 5px solid #FF6B6B;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Agreement & Forms Styling */
+        .agreement-box, .email-box, .bn-box, .prompt-box {
+            background-color: #F8F9FA;
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid #E0E0E0;
+            margin-top: 25px;
+            line-height: 1.8;
+        }
+        .agreement-box h4, .email-box h4, .bn-box h4, .prompt-box h4 {
+            color: #6C5CE7;
+            margin-top: 0;
+        }
+        .data-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #4A4A4A;
+        }
+        .data-form input, .data-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .data-form input:focus, .data-form textarea:focus {
+            outline: none;
+            border-color: #6C5CE7;
+        }
+
+        /* Data Catalogue Styling */
+        .portal-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+        .portal-toggle button {
+            padding: 12px 22px;
+            border: none;
+            background-color: #E9E4FF;
+            color: #6C5CE7;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .portal-toggle button.active {
+            background-color: #6C5CE7;
+            color: #fff;
+        }
+        .search-bar {
+            display: flex;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .search-bar input {
+            flex-grow: 1;
+            padding: 15px;
+            border: none;
+            font-size: 1rem;
+        }
+        .search-bar button {
+            padding: 15px 30px;
+            border: none;
+            background-color: #FF6B6B;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .search-bar button:hover {
+            background-color: #E75353;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+        .category-card {
+            background-color: #fff;
+            border: 1px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        /* Data Maturity Assessment Styling */
+        .maturity-assessment label {
+            position: relative;
+            background-color: #F8F2FF;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: block;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .maturity-assessment label:hover {
+            background-color: #E9E4FF;
+        }
+        .maturity-assessment label .tooltiptext {
+            visibility: hidden;
+            background-color: #4A4A4A;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 105%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            width: 250px;
+            font-size: 0.9em;
+        }
+        .maturity-assessment label:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Maturity Dashboard */
+        .maturity-dashboard { margin-top: 30px; }
+        .dashboard-header {
+            text-align: center;
+            background-color: #F4F2FF;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 2px dashed #6C5CE7;
+        }
+        .dashboard-header p b { color: #FF6B6B; }
+        .maturity-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .maturity-table th, .maturity-table td { text-align: left; padding: 15px; border-bottom: 1px solid #E0E0E0; }
+        .maturity-table th { background-color: #F8F9FA; font-weight: bold; }
+        .progress-bar { background-color: #E9E4FF; border-radius: 5px; overflow: hidden; height: 15px; }
+        .progress-bar-fill { height: 100%; background-color: #6C5CE7; transition: width 0.4s ease-in-out; }
+
+        /* Modal for DMAT details */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            padding-top: 50px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover, .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Mock Visualisations */
+        .mock-chart-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: #e6f0f5;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #d4e3f1;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .mock-chart-container .chart-bars {
+            position: absolute;
+            bottom: 0;
+            left: 5%;
+            width: 90%;
+            height: 90%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding-bottom: 5%;
+        }
+        .chart-bar {
+            width: 15%;
+            background-color: #6C5CE7;
+            margin: 0 1%;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            position: relative;
+            animation: bar-grow 1.5s ease-out forwards;
+        }
+        @keyframes bar-grow {
+            from { height: 0; }
+            to { height: var(--bar-height); }
+        }
+        .chart-bar:nth-child(1) { --bar-height: 70%; background-color: #FF6B6B; }
+        .chart-bar:nth-child(2) { --bar-height: 50%; background-color: #00C8FF; }
+        .chart-bar:nth-child(3) { --bar-height: 85%; background-color: #FF6B6B; }
+        .chart-bar:nth-child(4) { --bar-height: 60%; background-color: #00C8FF; }
+        .chart-bar-label {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7em;
+            color: #4A4A4A;
+            font-weight: bold;
+        }
+        .chart-axis-label {
+            position: absolute;
+            font-size: 0.8em;
+            color: #777;
+        }
+        .chart-x-axis { bottom: 0; width: 100%; text-align: center; }
+        .chart-y-axis { left: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 5% 0; }
+
+        .mock-map-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 65%; /* Aspect Ratio for a map */
+            background-color: #d4e3f1;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #c0d1e0;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        .mock-map-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"><rect x="0" y="0" width="200" height="200" fill="%23CCE5FF"/><circle cx="50" cy="50" r="30" fill="%23FF6B6B" opacity="0.6"/><circle cx="150" cy="120" r="40" fill="%23FFD166" opacity="0.6"/><circle cx="80" cy="160" r="25" fill="%2300C8FF" opacity="0.6"/><path d="M10 10 L190 10 L190 190 L10 190 Z" fill="none" stroke="%23333" stroke-width="2"/></svg>'); /* Simple map-like SVG */
+            background-size: cover;
+            opacity: 0.8;
+        }
+        .map-legend {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(255,255,255,0.9);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .map-legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .map-legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Vibrant Data Portal</h1>
+        <p>Your hub for data and services for the UK Government.</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#open-data-portal">Open Data Portal</a></li>
+            <li><a href="#data-capability">Data Capability</a></li>
+            <li><a href="#data-sharing-section">Data Sharing</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <div id="home-page" class="content-section">
+            <h2>Welcome to the State Data Portal</h2>
+            <p>This is the central hub for accessing government data and services for our state. Choose an option from the navigation bar above to get started.</p>
+        </div>
+
+        <div id="open-data-portal" class="content-section" style="display:none;">
+            <h2>Data Catalogue</h2>
+            <div class="portal-toggle">
+                <button class="active" onclick="toggleCatalogue('open')">Open Data Portal</button>
+                <button onclick="toggleCatalogue('internal')">Internal Data Catalogue</button>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search datasets, topics, or agencies...">
+                <button>Search</button>
+            </div>
+            <div class="category-grid">
+                <div class="category-card"><h4>Health</h4><p>Healthcare statistics and public health data.</p></div>
+                <div class="category-card"><h4>Environment</h4><p>Climate, pollution, and natural resources.</p></div>
+                <div class="category-card"><h4>Public Safety</h4><p>Crime rates and emergency services data.</p></div>
+                <div class="category-card"><h4>Transport</h4><p>Traffic, public transit, and infrastructure.</p></div>
+                <div class="category-card"><h4>Finance & Economy</h4><p>Economic indicators and business data.</p></div>
+                <div class="category-card"><h4>Education</h4><p>School and student performance data.</p></div>
+            </div>
+            <div class="internal-message" style="display:none; text-align:center; margin-top:30px;">
+                <h3>Internal Data Catalogue</h3>
+                <p>This is a secure internal catalogue for government employees to access and share data. Access is restricted and requires authentication.</p>
+            </div>
+            <div class="dashboard-section" style="margin-top:40px;">
+                <h3>Data Visualisations & Dashboards</h3>
+                <p>Explore some common open datasets through interactive dashboards to see the value of data in action.</p>
+                <div style="background-color:#f0f8ff; padding:20px; border-radius:8px; margin-bottom:20px;">
+                    <h4>Public Transport Usage Dashboard (Daily Commuters)</h4>
+                    <p>Interactive chart showing daily passenger volume by public transport mode across key urban areas.</p>
+                    <div class="mock-chart-container">
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="--bar-height: 70%;"><span class="chart-bar-label">Tube</span></div>
+                            <div class="chart-bar" style="--bar-height: 50%;"><span class="chart-bar-label">Bus</span></div>
+                            <div class="chart-bar" style="--bar-height: 85%;"><span class="chart-bar-label">Train</span></div>
+                            <div class="chart-bar" style="--bar-height: 60%;"><span class="chart-bar-label">Tram</span></div>
+                        </div>
+                        <span class="chart-axis-label" style="bottom: 0; left: 45%;">Transport Mode</span>
+                        <span class="chart-axis-label" style="transform: rotate(-90deg); transform-origin: top left; top: 50%; left: 0px; text-align: center;">Daily Passengers (Millions)</span>
+                    </div>
+                </div>
+                <div style="background-color:#e6f0f5; padding:20px; border-radius:8px;">
+                    <h4>Environmental Quality Trends (Air Pollution Levels)</h4>
+                    <p>Map-based visualisation of air quality and pollution levels across key regions of the UK.</p>
+                    <div class="mock-map-container">
+                        <div class="mock-map-image"></div>
+                        <div class="map-legend">
+                            <div class="map-legend-item"><div class="map-legend-color" style="background-color: #FF6B6B;"></div>High Pollution</div>
+                            <div class="map-legend-item"><div class="map-legend-color" style="background-color: #FFD166;"></div>Moderate Pollution</div>
+                            <div class="map-legend-item"><div class="map-legend-color" style="background-color: #00C8FF;"></div>Low Pollution</div>
+                        </div>
+                        <span class="chart-axis-label" style="top: 10px; left: 10px; font-weight: bold;">UK Air Quality Map</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="data-capability" class="content-section" style="display:none;">
+            <h2>Data Maturity Dashboard</h2>
+            <p>This dashboard provides a holistic view of data maturity across the government, based on assessments of 23 government agencies. Use this to identify areas of strength and opportunities for improvement.</p>
+            <div class="maturity-dashboard">
+                <div class="dashboard-header">
+                    <h4>Overall Government Data Maturity</h4>
+                    <p><b>Level 4.2 / 7.0 - Defined</b></p>
+                    <div class="progress-bar" style="width: 80%; margin: 0 auto;">
+                        <div class="progress-bar-fill" style="width: 59%;"></div>
+                    </div>
+                </div>
+                <table class="maturity-table">
+                    <thead>
+                        <tr>
+                            <th>Focus Area</th>
+                            <th>Maturity Level</th>
+                            <th>Progress</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Data Strategy and Governance</td><td>4.5</td><td><div class="progress-bar"><div class="progress-bar-fill" style="width: 64%;"></div></div></td><td><button class="action-button" onclick="showModal('Data Strategy and Governance', 'This area assesses alignment of data strategy with organisational goals and governance frameworks. A score of 4.5 indicates a well-defined strategy, but with room for more robust implementation across all departments.')">Learn More</button></td></tr>
+                        <tr><td>Data Architecture</td><td>3.8</td><td><div class="progress-bar"><div class="progress-bar-fill" style="width: 54%;"></div></div></td><td><button class="action-button" onclick="showModal('Data Architecture', 'This reviews the design and structure of data systems for operational and strategic needs. A score of 3.8 suggests that while frameworks exist, many data silos and manual processes remain, hindering full integration.')">Learn More</button></td></tr>
+                        <tr><td>Data Operations</td><td>4.2</td><td><div class="progress-bar"><div class="progress-bar-fill" style="width: 60%;"></div></div></td><td><button class="action-button" onclick="showModal('Data Operations', 'This evaluates data storage, access, processing, and daily management practices. A score of 4.2 indicates that daily operations are well-managed, but could benefit from further automation and optimisation.')">Learn More</button></td></tr>
+                        <tr><td>Data Risk Management</td><td>5.1</td><td><div class="progress-bar"><div class="progress-bar-fill" style="width: 73%;"></div></div></td><td><button class="action-button" onclick="showModal('Data Risk Management', 'This examines how agencies identify, assess, and mitigate security, compliance, and operational risks. A score of 5.1 shows strong, proactive risk management, with a clear focus on data security.')">Learn More</button></td></tr>
+                        <tr><td>Data Quality</td><td>3.5</td><td><div class="progress-bar"><div class="progress-bar-fill" style="width: 50%;"></div></div></td><td><button class="action-button" onclick="showModal('Data Quality', 'This measures the accuracy, completeness, consistency, and reliability of data. A score of 3.5 indicates a need for improved data validation processes to ensure data is reliable and fit for purpose.')">Learn More</button></td></tr>
+                        <tr><td>Reference Data and Metadata Management</td><td>3.9</td><td><div class="progress-bar"><div class="progress-bar-fill" style="width: 56%;"></div></div></td><td><button class="action-button" onclick="showModal('Reference Data and Metadata Management', 'This evaluates how reference data and metadata are managed to enhance interoperability. A score of 3.9 suggests that while some metadata exists, a centralised, managed catalogue is still developing.')">Learn More</button></td></tr>
+                        <tr><td>Data Integration and Analytics</td><td>4.1</td><td><div class="progress-bar"><div class="progress-bar-fill" style="width: 58%;"></div></div></td><td><button class="action-button" onclick="showModal('Data Integration and Analytics', 'This assesses data integration from multiple sources and the ability to generate insights. A score of 4.1 shows that agencies can perform basic analysis, but lack the tools for advanced, cross-agency insights.')">Learn More</button></td></tr>
+                    </tbody>
+                </table>
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="action-button" onclick="showSection('dmat-assessment')">Start a DMAT for my Agency</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="dmat-assessment" class="content-section" style="display:none;">
+            <h2>Data Maturity Assessment Tool (DMAT)</h2>
+            <p>Answer the questions below to assess your agency's data maturity. Hover over the maturity levels to see their descriptions.</p>
+            <form class="maturity-assessment">
+                <div class="question-group">
+                    <h4>1. Data Strategy & Governance</h4>
+                    <p>How well-defined is your agency's strategy for data use and governance?</p>
+                    <label><input type="radio" name="q1" value="1">Level 1<span class="tooltiptext"><b>Initial:</b> Processes are unpredictable and reactively managed. There's no formalised data strategy.</span></label>
+                    <label><input type="radio" name="q1" value="2">Level 2<span class="tooltiptext"><b>Developing:</b> Data is used in isolated pockets, but without a clear, overarching strategy.</span></label>
+                    <label><input type="radio" name="q1" value="3">Level 3<span class="tooltiptext"><b>Defined:</b> A formal data strategy is in place, but its implementation may be inconsistent across the agency.</span></label>
+                    <label><input type="radio" name="q1" value="4">Level 4<span class="tooltiptext"><b>Managed:</b> Data strategy is actively managed and tracked with performance metrics.</span></label>
+                    <label><input type="radio" name="q1" value="5">Level 5<span class="tooltiptext"><b>Optimised:</b> Data is a central component of agency strategy, with continuous improvement.</span></label>
+                    <label><input type="radio" name="q1" value="6">Level 6<span class="tooltiptext"><b>Leading:</b> The agency is an industry leader in data governance, setting benchmarks for others.</span></label>
+                    <label><input type="radio" name="q1" value="7">Level 7<span class="tooltiptext"><b>Transformational:</b> Data is not just a tool but a core business asset, driving disruptive innovation.</span></label>
+                </div>
+                <div class="question-group">
+                    <h4>2. Data Architecture</h4>
+                    <p>How well-designed is the structure of your data systems for strategic needs?</p>
+                    <label><input type="radio" name="q2" value="1">Level 1<span class="tooltiptext"><b>Initial:</b> Data is scattered in silos with no standardised architecture.</span></label>
+                    <label><input type="radio" name="q2" value="2">Level 2<span class="tooltiptext"><b>Developing:</b> Point-to-point integrations exist but with significant manual effort.</span></label>
+                    <label><input type="radio" name="q2" value="3">Level 3<span class="tooltiptext"><b>Defined:</b> A documented data architecture framework is in place.</span></label>
+                    <label><input type="radio" name="q2" value="4">Level 4<span class="tooltiptext"><b>Managed:</b> Data is integrated and shared through a centralised hub or platform.</span></label>
+                    <label><input type="radio" name="q2" value="5">Level 5<span class="tooltiptext"><b>Optimised:</b> Architecture is scalable, secure, and supports advanced analytics.</span></label>
+                    <label><input type="radio" name="q2" value="6">Level 6<span class="tooltiptext"><b>Leading:</b> The architecture is a competitive advantage, enabling new capabilities.</span></label>
+                    <label><input type="radio" name="q2" value="7">Level 7<span class="tooltiptext"><b>Transformational:</b> Architecture is fully automated and adaptive, supporting AI and real-time data streams.</span></label>
+                </div>
+                <button class="action-button" type="submit">Submit Assessment</button>
+            </form>
+        </div>
+
+        <div id="data-sharing-section" class="content-section" style="display:none;">
+            <h2>Data Sharing Framework</h2>
+            <p>Our framework guides you through a secure and effective data sharing process.</p>
+            <div class="framework-nav">
+                <button class="framework-step active" onclick="showFrameworkContent('why')">Why</button>
+                <button class="framework-step" onclick="showFrameworkContent('when')">When</button>
+                <button class="framework-step" onclick="showFrameworkContent('what')">What</button>
+                <button class="framework-step" onclick="showFrameworkContent('who')">Who</button>
+                <button class="framework-step" onclick="showFrameworkContent('how')">How</button>
+            </div>
+            <div id="why-content" class="framework-content">
+                <h3>Why Data Can Be Shared</h3>
+                <p>Sharing data has the potential to contribute to important initiatives and can result in many benefits to the community, environment, and government. Improved data sharing can lead to:</p>
+                <div class="framework-benefits">
+                    <div class="benefit-card"><h4>Public Safety & Disaster Management</h4><p>Enhancing emergency response and informing strategies to mitigate and respond to natural disasters.</p></div>
+                    <div class="benefit-card"><h4>Policy Design & Service Delivery</h4><p>Creating evidence-based policies that are more effective and improving the efficiency of government services.</p></div>
+                    <div class="benefit-card"><h4>Digital First Services</h4><p>Enabling the development of innovative, user-centric digital solutions for citizens and businesses.</p></div>
+                    <div class="benefit-card"><h4>Economic & Environmental Impact</h4><p>Driving economic growth through data-driven insights and supporting environmental sustainability efforts.</p></div>
+                </div>
+            </div>
+            <div id="when-content" class="framework-content" style="display:none;">
+                <h3>When It Should Be Shared</h3>
+                <p>Data sharing is guided by specific conditions and legal requirements. Before proceeding, consider the following:</p>
+                <ul>
+                    <li>Is there a legal or policy framework that supports this data sharing?</li>
+                    <li>Are there privacy or security concerns that need to be addressed?</li>
+                    <li>Is the timing of the data sharing request appropriate for all parties involved?</li>
+                    <li>Have necessary approvals been obtained?</li>
+                </ul>
+                <p>Ensuring compliance and proper timing is essential for a successful data sharing agreement.</p>
+            </div>
+            <div id="what-content" class="framework-content" style="display:none;">
+                <h3>What Data Can Be Shared</h3>
+                <p>Data comes in many forms, each with its own level of sensitivity. It's crucial to identify the type of data you need to ensure proper handling and security protocols are followed.</p>
+                <div style="background-color:#F8F2FF; padding:20px; border-radius:10px;">
+                    <p><b>Public Data:</b> Openly accessible to everyone. You can start your search by exploring our <a href="#open-data-portal"><b>Open Data Portal</b></a>.</p>
+                    <p><b>Confidential Data:</b> Contains non-public information. Requires formal agreements for sharing. You can find these datasets in the <a href="#internal-catalogue"><b>Internal Data Catalogue</b></a>.</p>
+                    <p><b>Protected Data:</b> Contains sensitive information like personal identifiable information (PII) or classified data. Requires strict legal and security measures. You can find these datasets in the <a href="#internal-catalogue"><b>Internal Data Catalogue</b></a>.</p>
+                </div>
+                <p>By understanding the data classification, you can select the correct process for your request.</p>
+            </div>
+            <div id="who-content" class="framework-content" style="display:none;">
+                <h3>Who Can Share and Receive Data</h3>
+                <p>Data sharing involves specific roles and responsibilities to ensure accountability and proper governance. The two key roles are:</p>
+                <ul>
+                    <li><b>Data Custodians:</b> The agency or department that officially owns and maintains the data. They are responsible for its security and integrity.</li>
+                    <li><b>Data Consumers:</b> The individual or organisation requesting and using the data. They are responsible for using the data securely and in line with the agreed-upon purpose.</li>
+                </ul>
+                <p>This clarity helps define who needs to be engaged at each step of the process.</p>
+            </div>
+            <div id="how-content" class="framework-content" style="display:none;">
+                <h3>How to Share Data</h3>
+                <p>This is the practical, step-by-step guide to the data sharing process. To begin the process, click the button below.</p>
+                <button class="action-button" onclick="showStep('how-to-step-1')">Start the How-To Process</button>
+            </div>
+        </div>
+
+        <div id="how-to-step-1" class="content-section" style="display:none;">
+            <h2>Step 1: Identify Your Data Needs</h2>
+            <p>Define the specific data you require. Be clear about the project, the data you need, and the problem you're trying to solve. This helps us match your request with the right data sources.</p>
+            <button class="action-button" onclick="showStep('how-to-step-2')">Next: Engage with Stakeholders</button>
+        </div>
+
+        <div id="how-to-step-2" class="content-section" style="display:none;">
+            <h2>Step 2: Engage with Data Custodians</h2>
+            <p>Now that you've identified your data needs, it's time to reach out to the relevant data custodian. Please fill out the form below to begin the conversation.</p>
+            <form id="dataRequestForm" class="data-form">
+                <label for="name">Your Name:</label><input type="text" id="name" name="name" required>
+                <label for="organization">Your Organisation:</label><input type="text" id="organization" name="organization" required>
+                <label for="email">Your Email:</label><input type="email" id="email" name="email" required>
+                <label for="dataset">Name of the Dataset (if known):</label><input type="text" id="dataset" name="dataset">
+                <label for="purpose">Briefly describe the purpose of your data request:</label><textarea id="purpose" name="purpose" rows="5" required></textarea>
+                <button type="button" class="action-button" onclick="processFormAndShowAgreement()">Continue to Agreement</button>
+            </form>
+        </div>
+
+        <div id="how-to-step-3" class="content-section" style="display:none;">
+            <h2>Step 3: Review Data Sharing Agreement</h2>
+            <p>Review the draft Data Sharing Agreement below. This is a framework to guide the formal process.</p>
+            <div class="agreement-box">
+                <h4>DATA SHARING AGREEMENT (DRAFT)</h4>
+                <p>This Agreement is entered into by <b>[Data Provider Entity Name]</b> (Provider) and <b><span id="agreementOrganization"></span></b> (Requester).</p>
+                <h5>1. Purpose of Sharing</h5>
+                <p>The data will be used solely for the purpose of <b><span id="agreementPurpose"></span></b>, specifically for the project: <b><span id="agreementDataset"></span></b>.</p>
+                <h5>2. Data Description & Scope</h5>
+                <p>The shared data is [General description of data, to be specified further]. Requester agrees to use the data only as permitted by this agreement.</p>
+                <h5>3. Confidentiality & Security</h5>
+                <p>The Requester must protect all shared data from unauthorised access or disclosure. Shared data, unless public, is confidential.</p>
+                <h5>4. Retention & Termination</h5>
+                <p>The Requester will only keep the data for as long as necessary for the stated purpose, after which it must be securely deleted. This agreement can be terminated with written notice.</p>
+            </div>
+            <button class="action-button" onclick="sendGenAIDraftedAgreement()">Generate & Send AI-Drafted Agreement</button>
+            <button class="action-button" style="background-color: #6C5CE7;" onclick="downloadHeadAgreement()">Download the Government Head Agreement</button>
+        </div>
+
+        <div id="how-to-step-4" class="content-section" style="display:none;">
+            <h2>Step 4: Generate Internal BN & Email</h2>
+            <p>Click the button below to generate a draft briefing note for internal approval and an introductory email for the data custodian. Both will be created by a GenAI model based on your inputs.</p>
+            <button class="action-button" onclick="generateBN()">Generate Briefing Note & Email</button>
+        </div>
+
+        <div id="how-to-step-5" class="content-section" style="display:none;">
+            <h2>Step 5: Review AI-Generated Drafts</h2>
+            <div class="bn-box" style="margin-bottom: 30px;">
+                <h4>AI-Generated Briefing Note (Draft)</h4>
+                <h5><b>Subject:</b> Request to Engage in Data Sharing for <b><span id="bnDataset"></span></b></h5>
+                <p><b>TO:</b> [Head of Department/Relevant Authority]</p>
+                <p><b>FROM:</b> <b><span id="bnName"></span></b> (<b><span id="bnOrganization"></span></b>)</p>
+                <p><b>DATE:</b> <span id="bnDate"></span></p>
+                <p><b>ISSUE:</b> To seek approval to engage with a data custodian for the purpose of sharing data for the project, <b><span id="bnDataset"></span></b>.</p>
+                <p><b>BACKGROUND:</b> This data is required for the purpose of <b><span id="bnPurpose"></span></b>.</p>
+                <p><b>RECOMMENDATION:</b> It is recommended that [Head of Department] approve engagement with the relevant data custodian to proceed with a formal data sharing agreement.</p>
+            </div>
+            <div class="email-box">
+                <h4>AI-Generated Introductory Email Note</h4>
+                <div class="email-note">
+                    <p><b>Draft an introductory email using the following details:</b></p>
+                    <ul>
+                        <li><b>Recipient:</b> Data Custodian for <span id="noteDataset"></span></li>
+                        <li><b>Sender:</b> <span id="noteName"></span> from <span id="noteOrganization"></span></li>
+                        <li><b>Purpose of Request:</b> <span id="notePurpose"></span></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="margin-top: 30px; text-align: center;">
+                <button class="action-button" onclick="showSection('final-prompt')">View the AI Prompt Used</button>
+            </div>
+        </div>
+
+        <div id="final-prompt" class="content-section" style="display:none;">
+            <h2>AI Prompt Used for Generation</h2>
+            <p>The following prompt was sent to a GenAI model (like Gemini) to create the draft Briefing Note and Introductory Email.</p>
+            <div class="prompt-box">
+                <h4>Gemini Prompt</h4>
+                <p><b>Draft a briefing note and an introductory email using the following information:</b></p>
+                <ul>
+                    <li><b>Requestor:</b> <span id="finalPromptName"></span> from <span id="finalPromptOrg"></span></li>
+                    <li><b>Dataset:</b> <span id="finalPromptDataset"></span></li>
+                    <li><b>Purpose:</b> <span id="finalPromptPurpose"></span></li>
+                </ul>
+                <p><b>Briefing Note Requirements:</b></p>
+                <ul>
+                    <li>Format: Standard government briefing note with TO, FROM, DATE, ISSUE, BACKGROUND, and RECOMMENDATION.</li>
+                    <li>Purpose: To seek approval to engage a data custodian for data sharing.</li>
+                </ul>
+                <p><b>Email Requirements:</b></p>
+                <ul>
+                    <li>Tone: Concise and professional.</li>
+                    <li>Content: Introduce the sender, state the purpose of the data request, and include a call to action to discuss next steps.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="dmatModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle"></h3>
+            <p id="modalText"></p>
+        </div>
+    </div>
+
+    <script>
+        // JS for main navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('nav a');
+            const sections = document.querySelectorAll('.content-section');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    showSection(targetId);
+                });
+            });
+
+            // Make the DMAT button work correctly from the dashboard
+            const dmatButton = document.querySelector('#data-capability .action-button');
+            if (dmatButton) {
+                dmatButton.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    showSection('dmat-assessment');
+                });
+            }
+
+            function showSection(id) {
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                const targetSection = document.getElementById(id);
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                }
+                if (id === 'data-sharing-section') {
+                    showFrameworkContent('why');
+                }
+            }
+            showSection('home-page');
+        });
+
+        // JS for catalogue toggle
+        function toggleCatalogue(type) {
+            const openCatalogue = document.querySelector('.category-grid');
+            const dashboards = document.querySelector('.dashboard-section');
+            const internalMessage = document.querySelector('.internal-message');
+            const buttons = document.querySelectorAll('.portal-toggle button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            if (type === 'open') {
+                openCatalogue.style.display = 'grid';
+                dashboards.style.display = 'block';
+                internalMessage.style.display = 'none';
+                buttons[0].classList.add('active');
+            } else {
+                openCatalogue.style.display = 'none';
+                dashboards.style.display = 'none';
+                internalMessage.style.display = 'block';
+                buttons[1].classList.add('active');
+            }
+        }
+
+        // JS for framework steps
+        function showFrameworkContent(step) {
+            document.querySelectorAll('.framework-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById(step + '-content').style.display = 'block';
+
+            document.querySelectorAll('.framework-step').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.framework-step[onclick="showFrameworkContent('${step}')"]`).classList.add('active');
+        }
+
+        // JS for how-to steps
+        window.showStep = function(stepId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(stepId).style.display = 'block';
+        }
+
+        window.processFormAndShowAgreement = function() {
+            const form = document.getElementById('dataRequestForm');
+            const name = form.elements['name'].value;
+            const organization = form.elements['organization'].value;
+            const purpose = form.elements['purpose'].value;
+            const dataset = form.elements['dataset'].value || 'Unnamed Project';
+            const email = form.elements['email'].value;
+
+            if (!name || !organization || !purpose || !email) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+            document.getElementById('agreementOrganization').textContent = organization;
+            document.getElementById('agreementPurpose').textContent = purpose;
+            document.getElementById('agreementDataset').textContent = dataset;
+            document.getElementById('noteName').textContent = name;
+            document.getElementById('noteOrganization').textContent = organization;
+            document.getElementById('notePurpose').textContent = purpose;
+            document.getElementById('noteDataset').textContent = dataset;
+            
+            showStep('how-to-step-3');
+        };
+
+        window.sendGenAIDraftedAgreement = function() {
+            alert('AI-drafted agreement has been generated and sent! You will now receive a draft for the introductory email.');
+            showStep('how-to-step-4');
+        };
+
+        window.generateBN = function() {
+            const form = document.getElementById('dataRequestForm');
+            const name = form.elements['name'].value;
+            const organization = form.elements['organization'].value;
+            const purpose = form.elements['purpose'].value;
+            const dataset = form.elements['dataset'].value || 'Unnamed Project';
+            const today = new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); /* Changed to en-GB */
+
+            document.getElementById('bnName').textContent = name;
+            document.getElementById('bnOrganization').textContent = organization;
+            document.getElementById('bnDataset').textContent = dataset;
+            document.getElementById('bnPurpose').textContent = purpose;
+            document.getElementById('bnDate').textContent = today;
+            
+            document.getElementById('finalPromptName').textContent = name;
+            document.getElementById('finalPromptOrg').textContent = organization;
+            document.getElementById('finalPromptDataset').textContent = dataset;
+            document.getElementById('finalPromptPurpose').textContent = purpose;
+
+            showStep('how-to-step-5');
+        };
+
+        window.downloadHeadAgreement = function() {
+            alert('A mock Government Head Agreement has been downloaded!');
+        }
+
+        // Modal JS
+        function showModal(title, text) {
+            const modal = document.getElementById('dmatModal');
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalText').textContent = text;
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('dmatModal');
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('dmatModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
